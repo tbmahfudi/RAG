@@ -14,9 +14,11 @@ aiofiles==23.2.1
 # Vector Database
 chromadb==0.4.18
 numpy<2.0.0  # ChromaDB compatibility with NumPy
+posthog>=2.4.0,<3.0.0  # Pin PostHog for ChromaDB 0.4.18 compatibility
 
 # OpenAI
-openai==1.3.0
+openai==1.54.4  # Updated for httpx compatibility
+httpx==0.27.2  # Compatible with OpenAI 1.54.4
 
 # Utilities
 python-dotenv==1.0.0
