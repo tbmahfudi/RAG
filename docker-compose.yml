@@ -8,6 +8,7 @@ services:
       - ./backend/.env
     environment:
       - DEBUG=false
+      - ANONYMIZED_TELEMETRY=False
     volumes:
       - ./backend/data:/app/data
       - ./backend/app:/app/app  # Hot reload for development

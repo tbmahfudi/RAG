@@ -1,5 +1,11 @@
 """Vector database service using ChromaDB"""
 
+import os
+
+# Disable ChromaDB telemetry before importing chromadb
+# This prevents telemetry errors from PostHog capture() method
+os.environ["ANONYMIZED_TELEMETRY"] = "False"
+
 import chromadb
 from chromadb.config import Settings as ChromaSettings
 from typing import List, Dict, Optional
