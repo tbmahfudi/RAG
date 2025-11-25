@@ -37,9 +37,9 @@ A complete RAG (Retrieval-Augmented Generation) system with FastAPI backend and 
 
 2. **Configure environment**
    ```bash
-   cp .env.example .env
+   cp backend/.env.example backend/.env
    ```
-   Edit `.env` and add your OpenAI API key:
+   Edit `backend/.env` and add your OpenAI API key:
    ```
    OPENAI_API_KEY=sk-your-actual-api-key-here
    ```
