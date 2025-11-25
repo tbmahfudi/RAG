@@ -16,7 +16,7 @@ Pure JavaScript frontend for the RAG document Q&A system, styled with Tailwind C
 
 ```bash
 cd frontend
-python3 -m http.server 8080
+python3 -m http.server 8081
 ```
 
 ### Option 2: Simple HTTP Server (Node.js)
@@ -24,21 +24,21 @@ python3 -m http.server 8080
 ```bash
 npm install -g http-server
 cd frontend
-http-server -p 8080
+http-server -p 8081
 ```
 
 ### Option 3: Using nginx with Docker
 
 See `docker-compose.yml` in the root directory.
 
-Then open your browser to: `http://localhost:8080`
+Then open your browser to: `http://localhost:8081`
 
 ## Configuration
 
 The API endpoint is configured in `js/api.js`:
 
 ```javascript
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = 'http://localhost:8001/api';
 ```
 
 Change this if your backend is running on a different host/port.
@@ -126,7 +126,7 @@ Open browser DevTools (F12) to:
 The chat uses EventSource for SSE. You can test the stream endpoint directly:
 
 ```javascript
-const source = new EventSource('http://localhost:8000/api/chat/stream?message=test');
+const source = new EventSource('http://localhost:8001/api/chat/stream?message=test');
 source.addEventListener('token', (e) => console.log(e.data));
 ```
 

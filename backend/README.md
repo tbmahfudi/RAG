@@ -42,16 +42,16 @@ OPENAI_API_KEY=sk-your-actual-api-key-here
 ### 3. Run the Server
 
 ```bash
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8001
 ```
 
-The API will be available at `http://localhost:8000`
+The API will be available at `http://localhost:8001`
 
 ### 4. Access API Documentation
 
 Open your browser to:
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
+- Swagger UI: `http://localhost:8001/docs`
+- ReDoc: `http://localhost:8001/redoc`
 
 ## API Endpoints
 
@@ -100,7 +100,7 @@ docker build -t rag-backend .
 
 ### Run Container
 ```bash
-docker run -p 8000:8000 \
+docker run -p 8001:8000 \
   -e OPENAI_API_KEY=sk-your-key \
   -v $(pwd)/data:/app/data \
   rag-backend

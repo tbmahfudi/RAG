@@ -50,9 +50,9 @@ A complete RAG (Retrieval-Augmented Generation) system with FastAPI backend and 
    ```
 
 4. **Access the application**
-   - Frontend: http://localhost:8080
-   - Backend API: http://localhost:8000
-   - API Docs: http://localhost:8000/docs
+   - Frontend: http://localhost:8081
+   - Backend API: http://localhost:8001
+   - API Docs: http://localhost:8001/docs
 
 ### Option 2: Local Development
 
@@ -73,7 +73,7 @@ cp .env.example .env
 # Edit .env and add your OpenAI API key
 
 # Run server
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8001
 ```
 
 #### Frontend Setup
@@ -82,10 +82,10 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 cd frontend
 
 # Serve with Python
-python -m http.server 8080
+python -m http.server 8081
 
 # Or with Node.js
-npx http-server -p 8080
+npx http-server -p 8081
 ```
 
 ## 📁 Project Structure
@@ -198,7 +198,7 @@ Content-Type: application/json
 GET /api/chat/stream?message=Your%20question&top_k=5&temperature=0.7
 ```
 
-Full API documentation available at: http://localhost:8000/docs
+Full API documentation available at: http://localhost:8001/docs
 
 ## 🏗️ Architecture
 
@@ -252,20 +252,20 @@ pytest tests/
 
 **Upload a document:**
 ```bash
-curl -X POST http://localhost:8000/api/documents/upload \
+curl -X POST http://localhost:8001/api/documents/upload \
   -F "files=@document.pdf"
 ```
 
 **Chat:**
 ```bash
-curl -X POST http://localhost:8000/api/chat \
+curl -X POST http://localhost:8001/api/chat \
   -H "Content-Type: application/json" \
   -d '{"message": "What is the main topic?"}'
 ```
 
 **Streaming chat:**
 ```bash
-curl -N "http://localhost:8000/api/chat/stream?message=Hello"
+curl -N "http://localhost:8001/api/chat/stream?message=Hello"
 ```
 
 ## 🔒 Security Considerations
@@ -304,7 +304,7 @@ For production, update `docker-compose.yml`:
 
 ### Health Check
 ```bash
-curl http://localhost:8000/health
+curl http://localhost:8001/health
 ```
 
 ### Logs
