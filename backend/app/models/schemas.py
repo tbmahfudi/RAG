@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional, List
 from datetime import datetime
 from enum import Enum
@@ -74,6 +74,8 @@ class Source(BaseModel):
 
 class ChatResponse(BaseModel):
     """Chat response"""
+    model_config = ConfigDict(protected_namespaces=())
+
     conversation_id: str
     answer: str
     sources: List[Source]
