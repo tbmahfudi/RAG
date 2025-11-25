@@ -36,8 +36,12 @@ class UploadManager {
             e.target.value = ''; // Reset input
         });
 
-        // Click to select
-        this.uploadArea.addEventListener('click', () => {
+        // Click to select (but not when clicking the label, as it already triggers the input)
+        this.uploadArea.addEventListener('click', (e) => {
+            // Don't trigger if the click is on the label or file input itself
+            if (e.target.tagName === 'LABEL' || e.target === this.fileInput) {
+                return;
+            }
             this.fileInput.click();
         });
 
