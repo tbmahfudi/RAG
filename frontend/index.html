@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Chat Application</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4a90e2',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+    <!-- Main Container -->
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 py-6">
+                <h1 class="text-3xl font-bold text-primary">📚 RAG Chat Application</h1>
+                <p class="text-gray-600 mt-1">Upload documents and ask questions</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100vh-200px)]">
+
+                <!-- Left Panel: Document Upload -->
+                <aside class="lg:col-span-1 bg-white rounded-lg shadow-sm p-6 overflow-y-auto">
+                    <h2 class="text-xl font-semibold mb-4">Upload Documents</h2>
+
+                    <!-- Upload Area -->
+                    <div id="upload-area"
+                         class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer transition-colors hover:border-primary hover:bg-blue-50">
+                        <div class="text-5xl mb-3">📁</div>
+                        <p class="text-gray-700 font-medium mb-2">Drag & drop files here</p>
+                        <p class="text-gray-500 text-sm mb-3">or</p>
+                        <label for="file-input" class="inline-block bg-primary text-white px-6 py-2 rounded-lg cursor-pointer hover:bg-blue-600 transition-colors">
+                            Select Files
+                        </label>
+                        <input type="file" id="file-input" multiple accept=".pdf,.txt" class="hidden">
+                        <p class="text-gray-500 text-xs mt-3">PDF or TXT files (max 10MB each)</p>
+                    </div>
+
+                    <!-- Upload Progress -->
+                    <div id="upload-progress" class="mt-4 hidden">
+                        <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                            <div id="progress-bar-fill" class="bg-primary h-2 transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                        <p id="upload-status" class="text-sm text-gray-600 mt-2">Uploading...</p>
+                    </div>
+
+                    <!-- Document List -->
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold mb-3">Uploaded Documents</h3>
+                        <div id="document-items" class="space-y-2">
+                            <p class="text-gray-500 text-center py-8">No documents uploaded yet</p>
+                        </div>
+                        <div id="document-count" class="mt-4 bg-blue-50 text-primary px-4 py-2 rounded-lg text-center font-medium">
+                            0 documents loaded
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Right Panel: Chat Interface -->
+                <main class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6 flex flex-col">
+                    <h2 class="text-xl font-semibold mb-4">Chat</h2>
+
+                    <!-- Chat Messages -->
+                    <div id="chat-messages" class="flex-1 overflow-y-auto border border-gray-200 rounded-lg p-4 mb-4">
+                        <div class="welcome-message text-center py-12">
+                            <h3 class="text-2xl font-bold text-gray-700 mb-2">👋 Welcome!</h3>
+                            <p class="text-gray-500">Upload documents on the left and start asking questions.</p>
+                        </div>
+                    </div>
+
+                    <!-- Chat Settings -->
+                    <div class="flex gap-4 mb-3 text-sm">
+                        <label class="flex items-center gap-2">
+                            <span class="text-gray-700">Top K:</span>
+                            <input type="number" id="top-k" value="5" min="1" max="10"
+                                   class="w-16 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                        </label>
+                        <label class="flex items-center gap-2">
+                            <span class="text-gray-700">Temperature:</span>
+                            <input type="number" id="temperature" value="0.7" min="0" max="2" step="0.1"
+                                   class="w-16 px-2 py-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary">
+                        </label>
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="flex gap-3">
+                        <textarea id="chat-input"
+                                  rows="2"
+                                  placeholder="Ask a question about your documents..."
+                                  class="flex-1 px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-primary disabled:bg-gray-100 disabled:cursor-not-allowed"
+                                  disabled></textarea>
+                        <button id="send-btn"
+                                class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+                                disabled>
+                            Send
+                        </button>
+                    </div>
+                </main>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50 space-y-2"></div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/upload.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
