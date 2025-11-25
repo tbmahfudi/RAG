@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abhimata Persada Helpdesk Chatbot</title>
+    <title>Abhimata Persada Knowledge Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -28,8 +28,7 @@
                          alt="Logo"
                          class="h-16 w-auto object-contain">
                     <div>
-                        <h1 class="text-3xl font-bold text-primary">Support Knowledge-base</h1>
-                        <p class="text-gray-600 mt-1">Upload your documents for your Knowledge-base</p>
+                        <h1 class="text-3xl font-bold text-primary">Knowledge Management</h1>
                     </div>
                 </div>
             </div>
@@ -101,7 +100,7 @@
                     <div id="chat-messages" class="flex-1 overflow-y-auto border border-gray-200 rounded-lg p-4 mb-4">
                         <div class="welcome-message text-center py-12">
                             <h3 class="text-2xl font-bold text-gray-700 mb-2">👋 Welcome!</h3>
-                            <p class="text-gray-500">Upload documents on the left and start asking questions.</p>
+                            <p class="text-gray-500">Upload documents for your Knowledge-base.</p>
                         </div>
                     </div>
 
@@ -109,7 +108,7 @@
                     <div class="flex gap-3">
                         <textarea id="chat-input"
                                   rows="2"
-                                  placeholder="Ask a question about your documents..."
+                                  placeholder="Ask a question about our knowledge..."
                                   class="flex-1 px-4 py-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-primary disabled:bg-gray-100 disabled:cursor-not-allowed"
                                   disabled></textarea>
                         <button id="send-btn"
