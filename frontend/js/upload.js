@@ -135,6 +135,27 @@ class UploadManager {
 
         } catch (error) {
             console.error('Failed to load documents:', error);
+
+            // Check if it's a connection error
+            if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+                this.documentItems.innerHTML = `
+                    <div class="text-center py-8">
+                        <p class="text-red-500 mb-2">⚠️ Cannot connect to backend</p>
+                        <p class="text-gray-500 text-sm">Make sure the backend is running on http://localhost:8001</p>
+                    </div>
+                `;
+                this.documentCount.textContent = 'Backend not available';
+            } else if (error.message.includes('404')) {
+                // 404 is okay - just means no documents yet
+                this.documentItems.innerHTML = '<p class="text-gray-500 text-center py-8">No documents uploaded yet</p>';
+                this.documentCount.textContent = '0 documents loaded';
+            } else {
+                this.documentItems.innerHTML = `
+                    <div class="text-center py-8">
+                        <p class="text-red-500 text-sm">${error.message}</p>
+                    </div>
+                `;
+            }
         }
     }
 

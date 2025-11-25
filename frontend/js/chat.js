@@ -106,10 +106,11 @@ class ChatManager {
                         const data = JSON.parse(e.data);
                         reject(new Error(data.error));
                     } catch {
-                        reject(new Error('Stream connection failed'));
+                        reject(new Error('Cannot connect to backend. Make sure the server is running on http://localhost:8001'));
                     }
                 } else {
-                    reject(new Error('Stream connection failed'));
+                    // Network error - backend likely not running
+                    reject(new Error('Cannot connect to backend. Make sure the server is running on http://localhost:8001'));
                 }
             });
 

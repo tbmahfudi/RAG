@@ -5,55 +5,82 @@ const API_BASE_URL = 'http://localhost:8001/api';
 const api = {
     // Upload multiple documents
     async uploadDocuments(files) {
-        const formData = new FormData();
-        files.forEach(file => {
-            formData.append('files', file);
-        });
+        try {
+            const formData = new FormData();
+            files.forEach(file => {
+                formData.append('files', file);
+            });
 
-        const response = await fetch(`${API_BASE_URL}/documents/upload`, {
-            method: 'POST',
-            body: formData,
-        });
+            const response = await fetch(`${API_BASE_URL}/documents/upload`, {
+                method: 'POST',
+                body: formData,
+            });
 
-        if (!response.ok) {
-            throw new Error(`Upload failed: ${response.statusText}`);
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.detail || `Upload failed: ${response.statusText}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            if (error.message.includes('Failed to fetch')) {
+                throw new Error('Cannot connect to backend. Make sure the server is running on http://localhost:8001');
+            }
+            throw error;
         }
-
-        return await response.json();
     },
 
     // Get all documents
     async getDocuments() {
-        const response = await fetch(`${API_BASE_URL}/documents`);
+        try {
+            const response = await fetch(`${API_BASE_URL}/documents`);
 
-        if (!response.ok) {
-            throw new Error(`Failed to fetch documents: ${response.statusText}`);
+            if (!response.ok) {
+                if (response.status === 404) {
+                    // No documents yet - return empty list
+                    return { documents: [], total: 0 };
+                }
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.detail || `Failed to fetch documents: ${response.statusText}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            if (error.message.includes('Failed to fetch')) {
+                throw new Error('Cannot connect to backend. Make sure the server is running on http://localhost:8001');
+            }
+            throw error;
         }
-
-        return await response.json();
     },
 
     // Send chat message (non-streaming)
     async sendMessage(message, conversationId = null, topK = 5, temperature = 0.7) {
-        const response = await fetch(`${API_BASE_URL}/chat`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                message,
-                conversation_id: conversationId,
-                top_k: topK,
-                temperature,
-            }),
-        });
+        try {
+            const response = await fetch(`${API_BASE_URL}/chat`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message,
+                    conversation_id: conversationId,
+                    top_k: topK,
+                    temperature,
+                }),
+            });
 
-        if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.detail || 'Chat failed');
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.detail || `Chat failed: ${response.statusText}`);
+            }
+
+            return await response.json();
+        } catch (error) {
+            if (error.message.includes('Failed to fetch')) {
+                throw new Error('Cannot connect to backend. Make sure the server is running on http://localhost:8001');
+            }
+            throw error;
         }
-
-        return await response.json();
     },
 
     // Create EventSource for streaming
